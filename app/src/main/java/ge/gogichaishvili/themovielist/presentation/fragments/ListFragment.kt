@@ -13,7 +13,7 @@ import ge.gogichaishvili.themovielist.domain.model.ItemTypesEnum
 import ge.gogichaishvili.themovielist.presentation.adapters.ItemsAdapter
 import ge.gogichaishvili.themovielist.presentation.viewmodels.ListScreenViewModel
 
-class ListFragment : Fragment() {
+class  ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +34,8 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //for details fragment back button
+        //for details fragment back button //ამ ფრაგმენტის ვიუმოდელიც განადგურდება ერთი სქრინიც რომ გქონდეს წინ ნავიგაციაში.
+        //მაგიტომ ასეთი რაღაცეები უფრო გლობალურად უნდა შეინახო მაგ. activity - ის ვიუმოდელი შეგიძლია გაუკეთო და იქ შეინახოო
         if (viewModel.getLastSelectedList() == ItemTypesEnum.MOVIES) {
             viewModel.getPopularMovies()
             binding.btnMovies.isEnabled = false

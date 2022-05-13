@@ -22,7 +22,7 @@ class ListScreenViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             moviesMutableLiveData.postValue(
-                moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68")
+                moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68") // ეს api key კონსტანტად უნდა გაიტანო
                     .toDomainModel().results
             )
         }

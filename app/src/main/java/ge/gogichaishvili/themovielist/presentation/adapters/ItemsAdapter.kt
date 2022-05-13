@@ -10,6 +10,7 @@ import ge.gogichaishvili.themovielist.domain.model.ItemTypesEnum
 
 class ItemsAdapter(private val itemList: MutableList<ItemList>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        // ItemsAdapter ძალიან ზოგადი სახელია მაგრამ რახან ორივეს ხატავს ok ari
 
     private lateinit var itemClickListener: (ItemList, Int) -> Unit
 
@@ -54,6 +55,9 @@ class ItemsAdapter(private val itemList: MutableList<ItemList>) :
             }
         }
     }
+
+    // ჯობდა რომ რამე აბსტრაქტული კლასი გაგეკეთებინა რომელიც ამ ორი ვიუჰოლდერის მშობელი იქნებოდა
+    // აღარ მოგიწევდა onBindViewHolder ში დაკასტვა
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_TYPE_MOVIES.value) {

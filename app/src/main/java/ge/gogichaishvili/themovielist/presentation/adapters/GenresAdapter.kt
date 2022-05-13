@@ -38,7 +38,6 @@ class GenresAdapter(private val itemList: MutableList<Genre>) :
     inner class GenreViewHolder(private val binding: LayoutGenreItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(genre: Genre) {
-
             binding.tvName.text = genre.name
 
             binding.clMain.setOnClickListener {

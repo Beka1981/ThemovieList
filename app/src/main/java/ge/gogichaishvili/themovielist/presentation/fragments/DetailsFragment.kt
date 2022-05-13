@@ -69,7 +69,7 @@ class DetailsFragment : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            if (parentFragmentManager.backStackEntryCount > 0) {
+            if (parentFragmentManager.backStackEntryCount > 0) { //nice check
                 parentFragmentManager.popBackStackImmediate()
             }
         }
@@ -82,6 +82,8 @@ class DetailsFragment : Fragment() {
         ).apply {
             setOnItemCLickListener {
                 Toast.makeText(requireContext(), it.name.toString(), Toast.LENGTH_SHORT).show()
+
+                //ზედმეტი ფუნქციონალი
             }
         }
         binding.rvMovies.layoutManager =
@@ -97,6 +99,8 @@ class DetailsFragment : Fragment() {
     companion object {
         const val KEY_ITEM_NAME = "KEY_ITEM_NAME"
         const val KEY_ITEM_TYPE = "KEY_ITEM_TYPE"
+
+        //მომავალში კიდე რომ დაემატოს არრგუმენტები ჯობია რომ ერთი data კლასი გააკეთო სადაც ამ ყველა არგუმენტს დავრაპავ DetailsDataModel
         fun newInstance(listId: Int, itemType: Int): DetailsFragment {
             return DetailsFragment().apply {
                 arguments = bundleOf(KEY_ITEM_NAME to listId, KEY_ITEM_TYPE to itemType)
