@@ -54,13 +54,13 @@
         android:layout_height="@dimen/btn_height"
         android:layout_marginTop="@dimen/btn_margin_top"
         android:background="@drawable/button"
+        android:enabled="false"
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/movies"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size"
         android:textStyle="bold"
-        android:enabled="false"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintTop_toBottomOf="@id/tvCategories" />
 
@@ -89,5 +89,16 @@
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintTop_toBottomOf="@id/btn_movies" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

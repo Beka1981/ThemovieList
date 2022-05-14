@@ -7,4 +7,6 @@
     <string name="movies">Movies</string>
     <string name="shows">Shows</string>
     <string name="back">Back</string>
+    <string name="first_tab_name">First fragment</string>
+    <string name="second_tab_name">Second fragment</string>
 </resources>

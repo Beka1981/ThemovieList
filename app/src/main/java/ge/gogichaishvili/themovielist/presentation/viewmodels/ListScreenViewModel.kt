@@ -10,25 +10,36 @@ import ge.gogichaishvili.themovielist.domain.repository.MoviesRepository
 import ge.gogichaishvili.themovielist.domain.repository.TvShowRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class ListScreenViewModel : ViewModel() {
 
-    private val moviesMutableLiveData = MutableLiveData<List<ItemList>>()
+    private val moviesMutableLiveData = MutableLiveData<ResponseState>()
     private val moviesRepository = MoviesRepository.getInstance()
 
     private val tvShowMutableLiveData = MutableLiveData<List<ItemList>>()
     private val tvShowRepository = TvShowRepository.getInstance()
 
     init {
+        moviesMutableLiveData.postValue(Loading)
         viewModelScope.launch {
-            moviesMutableLiveData.postValue(
-                moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68") // ეს api key კონსტანტად უნდა გაიტანო
-                    .toDomainModel().results
-            )
+
+            try {
+                moviesMutableLiveData.postValue(
+                    Success(
+                        data = moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68") // ეს api key კონსტანტად უნდა გაიტანო
+                            .toDomainModel().results
+                    )
+                )
+            } catch (e: HttpException) {
+                moviesMutableLiveData.postValue(Error(e))
+            }
+
+
         }
     }
 
-    fun getMoviesLiveData(): LiveData<List<ItemList>> {
+    fun getMoviesLiveData(): LiveData<ResponseState> {
         return moviesMutableLiveData
     }
 
@@ -38,10 +49,16 @@ class ListScreenViewModel : ViewModel() {
 
     fun getPopularMovies() {
         viewModelScope.launch(Dispatchers.Main.immediate) {
-            moviesMutableLiveData.postValue(
-                moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68")
-                    .toDomainModel().results
-            )
+            try {
+                moviesMutableLiveData.postValue(
+                    Success(
+                        data = moviesRepository.getMovies("843c612d1207fdec63f0e6a5fd426d68") // ეს api key კონსტანტად უნდა გაიტანო
+                            .toDomainModel().results
+                    )
+                )
+            } catch (e: HttpException) {
+                moviesMutableLiveData.postValue(Error(e))
+            }
         }
     }
 

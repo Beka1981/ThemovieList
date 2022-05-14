@@ -9,8 +9,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import ge.gogichaishvili.themovielist.R
 import ge.gogichaishvili.themovielist.databinding.FragmentDetailsBinding
 import ge.gogichaishvili.themovielist.domain.model.ItemTypesEnum
+import ge.gogichaishvili.themovielist.presentation.adapters.DetailsPagerAdapter
 import ge.gogichaishvili.themovielist.presentation.adapters.GenresAdapter
 import ge.gogichaishvili.themovielist.presentation.viewmodels.DetailsViewModel
 
@@ -22,6 +26,7 @@ class DetailsFragment : Fragment() {
     private val viewModel by viewModels<DetailsViewModel>()
 
     private lateinit var genreAdapter: GenresAdapter
+    private lateinit var detailsPagerAdapter: DetailsPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +41,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-
+        setUpViewPager()
         val itemId = requireArguments().getInt(KEY_ITEM_NAME)
         val itemType = requireArguments().getInt(KEY_ITEM_TYPE)
 
@@ -74,6 +79,23 @@ class DetailsFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun setUpViewPager() {
+        detailsPagerAdapter = DetailsPagerAdapter(parentFragmentManager, lifecycle)
+        binding.viewPager.adapter = detailsPagerAdapter
+        binding.viewPager.setPageTransformer(ZoomOutPageTransformer())
+
+        TabLayoutMediator(
+            binding.tabLayout,
+            binding.viewPager
+        ) { tab: TabLayout.Tab, postion: Int ->
+            tab.text = when (postion) {
+                0 -> getString(R.string.first_tab_name)
+                1 -> getString(R.string.second_tab_name)
+                else -> ""
+            }
+        }.attach()
     }
 
     private fun setUpRecyclerView() {

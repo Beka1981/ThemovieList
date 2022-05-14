@@ -5,15 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ge.gogichaishvili.themovielist.R
 import ge.gogichaishvili.themovielist.databinding.FragmentListBinding
+import ge.gogichaishvili.themovielist.domain.model.ItemList
 import ge.gogichaishvili.themovielist.domain.model.ItemTypesEnum
 import ge.gogichaishvili.themovielist.presentation.adapters.ItemsAdapter
+import ge.gogichaishvili.themovielist.presentation.viewmodels.Error
 import ge.gogichaishvili.themovielist.presentation.viewmodels.ListScreenViewModel
+import ge.gogichaishvili.themovielist.presentation.viewmodels.Loading
+import ge.gogichaishvili.themovielist.presentation.viewmodels.Success
+import retrofit2.HttpException
 
-class  ListFragment : Fragment() {
+class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -49,7 +56,11 @@ class  ListFragment : Fragment() {
         setUpRecyclerView()
 
         viewModel.getMoviesLiveData().observe(viewLifecycleOwner) {
-            itemsAdapter.updateList(it)
+            when (it) {
+                is Error -> showError(it.exception)
+                Loading -> showLoading()
+                is Success -> showSuccess(it.data)
+            }
         }
 
         viewModel.getTvShowsLiveData().observe(viewLifecycleOwner) {
@@ -70,6 +81,20 @@ class  ListFragment : Fragment() {
             binding.btnShows.isEnabled = false
         }
 
+    }
+
+    private fun showSuccess(data: List<ItemList>) {
+        binding.progressBar.isVisible = false
+        itemsAdapter.updateList(data)
+    }
+
+    private fun showError(exception: HttpException) {
+        binding.progressBar.isVisible = false
+        Toast.makeText(requireContext(), exception.code().toString(), Toast.LENGTH_LONG).show()
+    }
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
     }
 
     private fun setUpRecyclerView() {

@@ -21,6 +21,7 @@
             android:drawablePadding="-10dp"
             android:text="@string/back"
             android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMovieDescription" />
 
@@ -47,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivLargePoster" />
@@ -58,8 +60,25 @@
             android:layout_marginStart="20dp"
             android:textColor="@color/white"
             android:textSize="18sp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvMovies" />
+        
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ivLargePoster"
+            android:backgroundTint="@color/yellow"
+            app:tabMode="fixed"
+            android:id="@+id/tabLayout"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/viewPager"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
